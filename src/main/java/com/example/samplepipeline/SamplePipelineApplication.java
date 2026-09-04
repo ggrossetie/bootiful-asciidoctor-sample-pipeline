@@ -1,9 +1,6 @@
 package com.example.samplepipeline;
 
-//import bootiful.asciidoctor.DocumentsPublishedEvent;
-
 import bootiful.asciidoctor.DocumentsPublishedEvent;
-import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -17,12 +14,13 @@ import org.springframework.core.env.Environment;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-@Slf4j
 @SpringBootApplication
 public class SamplePipelineApplication {
 
+	private static final Logger log = LoggerFactory.getLogger(SamplePipelineApplication.class);
+
 	public static void main(String[] args) {
-		SpringApplication.run(SamplePipelineApplication.class, args);
+		System.exit(SpringApplication.exit(SpringApplication.run(SamplePipelineApplication.class, args)));
 	}
 
 	@Bean
@@ -35,7 +33,7 @@ public class SamplePipelineApplication {
 	ApplicationListener<ApplicationReadyEvent> ready(Executor[] executor) {
 		return event -> {
 			for (var e : executor)
-				System.out.println(e.toString());
+				log.info(e.toString());
 		};
 	}
 
